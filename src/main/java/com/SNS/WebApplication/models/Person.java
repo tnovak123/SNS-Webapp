@@ -1,12 +1,34 @@
 package com.SNS.WebApplication.models;
 
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+@Entity
 public class Person {
 
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+ //   @NotNull
+    @Size(min=3, max=50, message = "Must be between 3 and 20 characters.")
     private String fName;
 
+ //   @NotNull
+    @Size(min = 3, max = 50, message = "Must be between 3 and 50 characters.")
     private String lName;
 
-    private String type;
+    @ManyToOne
+    private PersonType type;
+
+    @ManyToOne
+    private Address address;
+
+    public Integer getId() {
+        return id;
+    }
 
     public String getfName() {
         return fName;
@@ -24,11 +46,19 @@ public class Person {
         this.lName = lName;
     }
 
-    public String getType() {
+    public PersonType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(PersonType type) {
         this.type = type;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
