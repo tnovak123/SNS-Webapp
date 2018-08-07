@@ -4,6 +4,7 @@ package com.SNS.WebApplication.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class Person {
@@ -20,11 +21,14 @@ public class Person {
     @Size(min = 3, max = 50, message = "Must be between 3 and 50 characters.")
     private String lName;
 
-    @ManyToOne
-    private PersonType type;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private List<PersonType> types;
 
-    @ManyToOne
-    private Address address;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private List<Address> addresses;
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private List<Phone> phoneList;
 
     public Integer getId() {
         return id;
@@ -46,19 +50,27 @@ public class Person {
         this.lName = lName;
     }
 
-    public PersonType getType() {
-        return type;
+    public List<PersonType> getTypes() {
+        return types;
     }
 
-    public void setType(PersonType type) {
-        this.type = type;
+    public void setTypes(List<PersonType> types) {
+        this.types = types;
     }
 
-    public Address getAddress() {
-        return address;
+    public List<Address> getAddresses() {
+        return addresses;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public List<Phone> getPhoneList() {
+        return phoneList;
+    }
+
+    public void setPhoneList(List<Phone> phoneList) {
+        this.phoneList = phoneList;
     }
 }

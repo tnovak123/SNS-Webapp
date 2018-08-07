@@ -4,6 +4,7 @@ import com.SNS.WebApplication.models.Person;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class Address {
@@ -29,6 +30,9 @@ public class Address {
     private String zipCode;
 
     private String postalCode;
+
+    @ManyToMany(mappedBy = "addresses")
+    private List<Person> personList;
 
     public Integer getId() {
         return id;
@@ -88,5 +92,13 @@ public class Address {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public List<Person> getPersonList() {
+        return personList;
+    }
+
+    public void setPersonList(List<Person> personList) {
+        this.personList = personList;
     }
 }

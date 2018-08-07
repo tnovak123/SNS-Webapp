@@ -10,11 +10,11 @@
 <body class="container">
 
 <nav th:fragment="navigation" class="navigation">
-    <a href="/">Home</a>|
-    <a href="/services">Services</a>|
-    <a href="/staff">Staff</a>|
-    <a href="/about">About</a>
+    <a href="/web/">Home</a>|
+    <a href="/web/services">Services</a>|
+    <a href="/web/staff">Staff</a>|
+    <a href="/web/about">About</a>
 </nav>
-
+<h1 th:fragment="page" th:text="${page}"></h1>
 </body>
 </html>

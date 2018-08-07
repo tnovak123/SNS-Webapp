@@ -12,11 +12,44 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("web")
 public class WebController {
 
+    private static String title = "Sam's Nail Spa";
+    private static String page;
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model){
 
-        model.addAttribute("title", "Sam's Nail Spa");
+        model.addAttribute("title", title);
 
         return "web/index";
+    }
+
+    @RequestMapping(value = "services", method = RequestMethod.GET)
+    public String services(Model model){
+
+        page = "Services Available.";
+        model.addAttribute("title", title);
+        model.addAttribute("page", page);
+
+        return "web/services";
+    }
+
+    @RequestMapping(value = "staff", method = RequestMethod.GET)
+    public String staff(Model model){
+
+        page = "Available Staff";
+        model.addAttribute("title", title);
+        model.addAttribute("page", page);
+
+        return "web/staff";
+    }
+
+    @RequestMapping(value = "about", method = RequestMethod.GET)
+    public String about(Model model){
+
+        page = "About Sam's Nail Spa";
+        model.addAttribute("title", title);
+        model.addAttribute("page", page);
+
+        return "web/about";
     }
 }
