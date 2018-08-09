@@ -41,7 +41,7 @@ public class Service {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     public Integer getRewardsEarn() {
         return rewardsEarn;
     }
