@@ -1,9 +1,6 @@
 package com.SNS.WebApplication.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -15,21 +12,22 @@ public class PersonType {
     private Integer id;
 
     @NotNull
-    private String Type;
+    private String mytype;
 
-    @ManyToMany(mappedBy = "types")
+    @OneToMany
+    @JoinColumn(name = "persontype_id")
     private List<Person> people;
 
     public Integer getId() {
         return id;
     }
 
-    public String getType() {
-        return Type;
+    public String getMytype() {
+        return mytype;
     }
 
-    public void setType(String type) {
-        Type = type;
+    public void setMytype(String mytype) {
+        this.mytype = mytype;
     }
 
     public List<Person> getPeople() {

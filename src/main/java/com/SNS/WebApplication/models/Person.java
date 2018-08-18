@@ -21,8 +21,8 @@ public class Person {
     @Size(min = 3, max = 50, message = "Must be between 3 and 50 characters.")
     private String lName;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    private List<PersonType> types;
+    @ManyToOne
+    private PersonType type;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Address> addresses;
@@ -50,12 +50,12 @@ public class Person {
         this.lName = lName;
     }
 
-    public List<PersonType> getTypes() {
-        return types;
+    public PersonType getType() {
+        return type;
     }
 
-    public void setTypes(List<PersonType> types) {
-        this.types = types;
+    public void setType(PersonType type) {
+        this.type = type;
     }
 
     public List<Address> getAddresses() {

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head th:replace="fragments :: head">
+
+</head>
+<body class="container">
+
+<nav th:replace="fragments :: admin-nav"></nav>
+<h1 th:replace="fragments :: page"></h1>
+
+<form method="post" style="max-width:600px;" th:object="${RewardsValue}">
+    <div class="form-group">
+        <label th:for="value">Reward Value</label>
+        <input class="form-control" th:field="*{value}" />
+        <span th:errors="*{value}" class="error"></span>
+    </div>
+    <div class="form-group">
+        <label th:for="cost">Reward Cost</label>
+        <input class="form-control" th:field="*{cost}" />
+        <span th:errors="*{cost}" class="error"></span>
+    </div>
+    <input mytype="submit" value="Add Rewards Values" />
+</form>
+
+<div th:unless="">
+
+</div>
+
+</body>
+</html>

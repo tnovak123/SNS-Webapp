@@ -26,7 +26,7 @@ public class WebController {
     @RequestMapping(value = "services", method = RequestMethod.GET)
     public String services(Model model){
 
-        page = "Services Available.";
+        page = "Services Available";
         model.addAttribute("title", title);
         model.addAttribute("page", page);
 

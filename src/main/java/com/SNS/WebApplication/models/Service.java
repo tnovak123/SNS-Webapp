@@ -1,9 +1,8 @@
 package com.SNS.WebApplication.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Currency;
+import java.util.List;
 
 @Entity
 public class Service {
@@ -16,9 +15,7 @@ public class Service {
 
     private String description;
 
-    private Integer rewardsEarn;
-
-    private Integer rewardsCost;
+    //private List<RewardsValue> rewardsValues = new ArrayList<>();
 
     private Currency price;
 
@@ -42,21 +39,9 @@ public class Service {
         this.description = description;
     }
 
-    public Integer getRewardsEarn() {
-        return rewardsEarn;
-    }
-
-    public void setRewardsEarn(Integer rewardsEarn) {
-        this.rewardsEarn = rewardsEarn;
-    }
-
-    public Integer getRewardsCost() {
-        return rewardsCost;
-    }
-
-    public void setRewardsCost(Integer rewardsCost) {
-        this.rewardsCost = rewardsCost;
-    }
+//    public List<RewardsValue> getRewardsValue() {
+//        return rewardsValues;
+//    }
 
     public Currency getPrice() {
         return price;
