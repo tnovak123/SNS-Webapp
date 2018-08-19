@@ -9,18 +9,22 @@
 
 <h1 th:replace="fragments :: page"></h1>
 
-<form method="post" style="max-width:600px;" th:object="${PersonType}" >
+<h3>Add Person Types</h3>
+<form method="post" style="max-width:600px;" th:object="${persontype}" >
     <div class="form-group">
-        <label th:for="mytype">Service Name</label>
-        <input class="form-control" th:field="*{mytype}" />
-        <span th:errors="*{mytype}" class="error"></span>
+        <label th:for="type">Person Type</label>
+        <input class="form-control" th:field="*{type}" />
+        <span th:errors="*{type}" class="error"></span>
     </div>
-    <input mytype="submit" value="Enter a Person Type" />
+    <input type="submit" value="Enter a Person Type" />
 </form>
-
-<div th:unless="">
-
-</div>
+<br />
+<h3>View Person Types</h3>
+<ul>
+    <li th:each="pt : ${pts}">
+        <span th:text="${pt.type}"></span>
+    </li>
+</ul>
 
 </body>
 </html>

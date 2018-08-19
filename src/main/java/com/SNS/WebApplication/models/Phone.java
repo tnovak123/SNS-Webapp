@@ -16,8 +16,8 @@ public class Phone {
 
     private String phoneType;
 
-    @ManyToMany(mappedBy = "phoneList")
-    private List<Person> persons;
+    @ManyToOne
+    private Person person;
 
     public Integer getId() {
         return id;
@@ -47,11 +47,11 @@ public class Phone {
         this.phoneType = phoneType;
     }
 
-    public List<Person> getPersons() {
-        return persons;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setPersons(List<Person> persons) {
-        this.persons = persons;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }

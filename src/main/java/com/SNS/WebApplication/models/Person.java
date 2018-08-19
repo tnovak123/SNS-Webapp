@@ -14,7 +14,7 @@ public class Person {
     private Integer id;
 
  //   @NotNull
-    @Size(min=3, max=50, message = "Must be between 3 and 20 characters.")
+    @Size(min=3, max=50, message = "Must be between 3 and 50 characters.")
     private String fName;
 
  //   @NotNull
@@ -24,10 +24,12 @@ public class Person {
     @ManyToOne
     private PersonType type;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @OneToMany
+    @JoinColumn(name = "person_id")
     private List<Address> addresses;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @OneToMany
+    @JoinColumn(name = "person_id")
     private List<Phone> phoneList;
 
     public Integer getId() {

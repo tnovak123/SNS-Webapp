@@ -31,8 +31,8 @@ public class Address {
 
     private String postalCode;
 
-    @ManyToMany(mappedBy = "addresses")
-    private List<Person> personList;
+    @ManyToOne
+    private Person person;
 
     public Integer getId() {
         return id;
@@ -94,11 +94,11 @@ public class Address {
         this.postalCode = postalCode;
     }
 
-    public List<Person> getPersonList() {
-        return personList;
+    public Person getPerson() {
+        return person;
     }
 
-    public void setPersonList(List<Person> personList) {
-        this.personList = personList;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 }

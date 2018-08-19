@@ -11,23 +11,29 @@ public class PersonType {
     @GeneratedValue
     private Integer id;
 
-    @NotNull
-    private String mytype;
+    //@NotNull
+    private String type;
 
     @OneToMany
     @JoinColumn(name = "persontype_id")
     private List<Person> people;
 
+    public PersonType(){}
+
+    public PersonType(String type) {
+        this.type = type;
+    }
+
     public Integer getId() {
         return id;
     }
 
-    public String getMytype() {
-        return mytype;
+    public String getType() {
+        return type;
     }
 
-    public void setMytype(String mytype) {
-        this.mytype = mytype;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public List<Person> getPeople() {
