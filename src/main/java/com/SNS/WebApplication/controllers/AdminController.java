@@ -1,15 +1,11 @@
 package com.SNS.WebApplication.controllers;
 
 
-import com.SNS.WebApplication.models.Address;
-import com.SNS.WebApplication.models.Person;
-import com.SNS.WebApplication.models.PersonType;
-import com.SNS.WebApplication.models.Phone;
+import com.SNS.WebApplication.models.*;
 import com.SNS.WebApplication.models.data.AddressDAO;
 import com.SNS.WebApplication.models.data.PersonDAO;
 import com.SNS.WebApplication.models.data.PersonTypeDAO;
 import com.SNS.WebApplication.models.data.PhoneDAO;
-import com.SNS.WebApplication.models.forms.AddPersonAddressPhoneForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +13,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -55,6 +52,8 @@ public class AdminController {
         page = "Service Entry Page";
         model.addAttribute("title", title);
         model.addAttribute("page", page);
+        model.addAttribute("services", new Service());
+
 
         return "admin/services";
     }
@@ -72,16 +71,14 @@ public class AdminController {
     @RequestMapping(value = "person", method = RequestMethod.GET)
     public String enterPerson(Model model){
 
-        AddPersonAddressPhoneForm form = new AddPersonAddressPhoneForm();
 
         page = "Edit a Person";
         model.addAttribute("title", title);
         model.addAttribute("page", page);
-        model.addAttribute("form", form);
-//        model.addAttribute("person", new Person());
-//        model.addAttribute("pts", personTypeDAO.findAll());
-//        model.addAttribute("address", new Address());
-//        model.addAttribute("phone", new Phone());
+        model.addAttribute("person", new Person());
+        model.addAttribute("personTypes", personTypeDAO.findAll());
+        model.addAttribute("address", new Address());
+        model.addAttribute("phone", new Phone());
 
         return "admin/person";
     }
@@ -90,7 +87,8 @@ public class AdminController {
     public String enterPerson(Model model, @ModelAttribute @Valid Person person,
                               @ModelAttribute @Valid Address address,
                               @ModelAttribute @Valid Phone phone,
-                              @ModelAttribute @Valid AddPersonAddressPhoneForm form,
+                              @ModelAttribute @Valid PersonType type,
+                              @RequestParam Integer typeId,
                               Errors errors){
 
         if(errors.hasErrors()){
@@ -102,8 +100,12 @@ public class AdminController {
             return "admin/person";
         }
 
-
+        type = personTypeDAO.findById(typeId).get();
+        person.setType(type);
         personDAO.save(person);
+        address.setPerson(person);
+        phone.setPerson(person);
+
         addressDAO.save(address);
         phoneDAO.save(phone);
 
@@ -116,7 +118,7 @@ public class AdminController {
         page = "Edit Person Types";
         model.addAttribute("title",title);
         model.addAttribute("page", page);
-        model.addAttribute("persontype", new PersonType());
+        model.addAttribute("personType", new PersonType());
         model.addAttribute("pts", personTypeDAO.findAll());
 
         return "admin/person-type";
@@ -129,10 +131,13 @@ public class AdminController {
             page = "Edit Person Types";
             model.addAttribute("title",title);
             model.addAttribute("page", page);
+            model.addAttribute("pts", personTypeDAO.findAll());
             model.addAttribute("errors", errors);
 
             return "admin/person-type";
         }
+
+        model.addAttribute("pts", personTypeDAO.findAll());
 
         personTypeDAO.save(pt);
         return "admin/person-type";

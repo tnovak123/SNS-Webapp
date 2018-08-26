@@ -10,7 +10,7 @@
 <h1 th:replace="fragments :: page"></h1>
 
 <h3>Add Person Types</h3>
-<form method="post" style="max-width:600px;" th:object="${persontype}" >
+<form method="post" style="max-width:600px;" th:object="${personType}" >
     <div class="form-group">
         <label th:for="type">Person Type</label>
         <input class="form-control" th:field="*{type}" />
