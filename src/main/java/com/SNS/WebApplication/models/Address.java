@@ -13,20 +13,20 @@ public class Address {
     @GeneratedValue
     private Integer id;
 
-//    @NotNull
+    @NotNull
     private String addLine1;
 
     private String addLine2;
 
     private String addLine3;
 
-//    @NotNull
+    @NotNull
     private String city;
 
-//    @NotNull
+    @NotNull
     private String state;
 
-//    @NotNull
+    @NotNull
     private String zipCode;
 
     private String postalCode;

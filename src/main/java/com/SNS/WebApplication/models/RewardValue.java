@@ -1,23 +1,29 @@
 package com.SNS.WebApplication.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class RewardsValue {
+public class RewardValue {
 
     @Id
     @GeneratedValue
     private Integer id;
 
+    @NotNull
     private Integer value;
 
+    @NotNull
     private Integer cost;
 
-    //@OneToMany
-    //@JoinColumn(name = "rewardsvalue_id")
-    //private List<Service> services = new ArrayList<>();
+    @OneToMany
+    @JoinColumn(name = "reward_value_id")
+    private List<Service> services = new ArrayList<>();
+
+    public RewardValue() {
+    }
 
     public Integer getId() {
         return id;
@@ -39,7 +45,11 @@ public class RewardsValue {
         this.cost = cost;
     }
 
-//    public List<Service> getServices() {
-//        return services;
-//    }
+    public List<Service> getServices() {
+        return services;
+    }
+
+    public void setServices(List<Service> services) {
+        this.services = services;
+    }
 }

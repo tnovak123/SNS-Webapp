@@ -2,10 +2,7 @@ package com.SNS.WebApplication.controllers;
 
 
 import com.SNS.WebApplication.models.*;
-import com.SNS.WebApplication.models.data.AddressDAO;
-import com.SNS.WebApplication.models.data.PersonDAO;
-import com.SNS.WebApplication.models.data.PersonTypeDAO;
-import com.SNS.WebApplication.models.data.PhoneDAO;
+import com.SNS.WebApplication.models.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +33,12 @@ public class AdminController {
     @Autowired
     PhoneDAO phoneDAO;
 
+    @Autowired
+    RewardValueDAO rewardValueDAO;
+
+    @Autowired
+    ServiceDAO serviceDAO;
+
     @RequestMapping(value="", method = RequestMethod.GET)
     public String index(Model model){
 
@@ -52,20 +55,61 @@ public class AdminController {
         page = "Service Entry Page";
         model.addAttribute("title", title);
         model.addAttribute("page", page);
-        model.addAttribute("services", new Service());
-
+        model.addAttribute("service", new Service());
+        model.addAttribute("rvs", rewardValueDAO.findAll());
 
         return "admin/services";
     }
 
-    @RequestMapping(value = "reward-values", method = RequestMethod.GET)
+    @RequestMapping(value = "services", method = RequestMethod.POST)
+    public String services(Model model, @ModelAttribute @Valid Service service, @RequestParam Integer rvId, Errors errors){
+
+        page = "Service Entry Page";
+        if (errors.hasErrors()){
+            model.addAttribute("title", title);
+            model.addAttribute("page", page);
+            model.addAttribute("errors", errors);
+            model.addAttribute("rvs", rewardValueDAO.findAll());
+
+            return "admin/services";
+        }
+
+        service.setRewardValue(rewardValueDAO.findById(rvId).get());
+        serviceDAO.save(service);
+
+        return "admin/services";
+    }
+
+    @RequestMapping(value = "reward-value", method = RequestMethod.GET)
     public String editRewardsValues(Model model){
 
         page = "Edit Rewards Values";
         model.addAttribute("title", title);
         model.addAttribute("page", page);
+        model.addAttribute("rv1", new RewardValue());
+        model.addAttribute("rvs", rewardValueDAO.findAll());
 
-        return "reward-values";
+        return "reward-value";
+    }
+
+    @RequestMapping(value = "reward-value", method = RequestMethod.POST)
+    public String editRewardsValues(Model model, @ModelAttribute @Valid RewardValue rv, Errors errors){
+
+        if (errors.hasErrors()){
+            page = "Edit Rewards Values";
+            model.addAttribute("title", title);
+            model.addAttribute("page", page);
+            model.addAttribute("rvs", rewardValueDAO.findAll());
+            model.addAttribute("errors", errors);
+
+            return "reward-value";
+        }
+
+        rewardValueDAO.save(rv);
+
+        model.addAttribute("rvs", rewardValueDAO.findAll());
+
+        return "reward-value";
     }
 
     @RequestMapping(value = "person", method = RequestMethod.GET)
@@ -87,7 +131,6 @@ public class AdminController {
     public String enterPerson(Model model, @ModelAttribute @Valid Person person,
                               @ModelAttribute @Valid Address address,
                               @ModelAttribute @Valid Phone phone,
-                              @ModelAttribute @Valid PersonType type,
                               @RequestParam Integer typeId,
                               Errors errors){
 
@@ -100,8 +143,7 @@ public class AdminController {
             return "admin/person";
         }
 
-        type = personTypeDAO.findById(typeId).get();
-        person.setType(type);
+        person.setType(personTypeDAO.findById(typeId).get());
         personDAO.save(person);
         address.setPerson(person);
         phone.setPerson(person);
@@ -137,9 +179,10 @@ public class AdminController {
             return "admin/person-type";
         }
 
+        personTypeDAO.save(pt);
+
         model.addAttribute("pts", personTypeDAO.findAll());
 
-        personTypeDAO.save(pt);
         return "admin/person-type";
     }
 }

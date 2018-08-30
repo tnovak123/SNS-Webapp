@@ -1,6 +1,7 @@
 package com.SNS.WebApplication.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -10,6 +11,7 @@ public class Phone {
     @GeneratedValue
     private Integer id;
 
+    @NotNull
     private String phoneNum;
 
     private String extension;

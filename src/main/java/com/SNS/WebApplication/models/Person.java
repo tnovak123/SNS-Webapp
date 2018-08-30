@@ -13,11 +13,11 @@ public class Person {
     @GeneratedValue
     private Integer id;
 
- //   @NotNull
+    @NotNull
     @Size(min=3, max=50, message = "Must be between 3 and 50 characters.")
     private String fName;
 
- //   @NotNull
+    @NotNull
     @Size(min = 3, max = 50, message = "Must be between 3 and 50 characters.")
     private String lName;
 

@@ -1,8 +1,9 @@
 package com.SNS.WebApplication.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Currency;
-import java.util.List;
 
 @Entity
 public class Service {
@@ -11,13 +12,21 @@ public class Service {
     @GeneratedValue
     private Integer id;
 
+    @NotNull
+    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters long.")
     private String name;
 
+    @NotNull
     private String description;
 
-    //private List<RewardsValue> rewardsValues = new ArrayList<>();
+    @ManyToOne
+    private RewardValue rewardValue;
 
+    @NotNull
     private Currency price;
+
+    public Service() {
+    }
 
     public Integer getId() {
         return id;
@@ -39,9 +48,13 @@ public class Service {
         this.description = description;
     }
 
-//    public List<RewardsValue> getRewardsValue() {
-//        return rewardsValues;
-//    }
+    public RewardValue getRewardValue() {
+        return rewardValue;
+    }
+
+    public void setRewardValue(RewardValue rewardValue) {
+        this.rewardValue = rewardValue;
+    }
 
     public Currency getPrice() {
         return price;

@@ -1,7 +1,6 @@
 package com.SNS.WebApplication.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -15,8 +14,8 @@ public class PersonType {
     private String type;
 
     @OneToMany
-    @JoinColumn(name = "persontype_id")
-    private List<Person> people;
+    @JoinColumn(name = "personType_id")
+    private List<Person> persons;
 
     public PersonType(){}
 
@@ -36,11 +35,11 @@ public class PersonType {
         this.type = type;
     }
 
-    public List<Person> getPeople() {
-        return people;
+    public List<Person> getPersons() {
+        return persons;
     }
 
-    public void setPeople(List<Person> people) {
-        this.people = people;
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
 }
