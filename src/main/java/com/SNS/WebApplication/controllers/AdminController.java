@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = "admin")
+@RequestMapping(value = "/admin")
 public class AdminController {
 
     private static String title = "Administrate Sam's Nail Spa";
@@ -39,7 +39,7 @@ public class AdminController {
     @Autowired
     ServiceDAO serviceDAO;
 
-    @RequestMapping(value="", method = RequestMethod.GET)
+    @RequestMapping(value="/", method = RequestMethod.GET)
     public String index(Model model){
 
         page = "Start Page for Administrator";
@@ -49,7 +49,7 @@ public class AdminController {
         return "admin/index";
     }
 
-    @RequestMapping(value = "services", method = RequestMethod.GET)
+    @RequestMapping(value = "/services", method = RequestMethod.GET)
     public String services(Model model){
 
         page = "Service Entry Page";
@@ -61,7 +61,7 @@ public class AdminController {
         return "admin/services";
     }
 
-    @RequestMapping(value = "services", method = RequestMethod.POST)
+    @RequestMapping(value = "/services", method = RequestMethod.POST)
     public String services(Model model, @ModelAttribute @Valid Service service, @RequestParam Integer rvId, Errors errors){
 
         page = "Service Entry Page";
@@ -80,19 +80,19 @@ public class AdminController {
         return "admin/services";
     }
 
-    @RequestMapping(value = "reward-value", method = RequestMethod.GET)
+    @RequestMapping(value = "/rewards", method = RequestMethod.GET)
     public String editRewardsValues(Model model){
 
         page = "Edit Rewards Values";
         model.addAttribute("title", title);
         model.addAttribute("page", page);
-        model.addAttribute("rv1", new RewardValue());
+        model.addAttribute("rewardValue", new RewardValue());
         model.addAttribute("rvs", rewardValueDAO.findAll());
 
-        return "reward-value";
+        return "admin/rewards";
     }
 
-    @RequestMapping(value = "reward-value", method = RequestMethod.POST)
+    @RequestMapping(value = "/rewards", method = RequestMethod.POST)
     public String editRewardsValues(Model model, @ModelAttribute @Valid RewardValue rv, Errors errors){
 
         if (errors.hasErrors()){
@@ -102,17 +102,17 @@ public class AdminController {
             model.addAttribute("rvs", rewardValueDAO.findAll());
             model.addAttribute("errors", errors);
 
-            return "reward-value";
+            return "admin/rewards";
         }
 
         rewardValueDAO.save(rv);
 
         model.addAttribute("rvs", rewardValueDAO.findAll());
 
-        return "reward-value";
+        return "admin/rewards";
     }
 
-    @RequestMapping(value = "person", method = RequestMethod.GET)
+    @RequestMapping(value = "/person", method = RequestMethod.GET)
     public String enterPerson(Model model){
 
 
@@ -127,7 +127,7 @@ public class AdminController {
         return "admin/person";
     }
 
-    @RequestMapping(value = "person", method = RequestMethod.POST)
+    @RequestMapping(value = "/person", method = RequestMethod.POST)
     public String enterPerson(Model model, @ModelAttribute @Valid Person person,
                               @ModelAttribute @Valid Address address,
                               @ModelAttribute @Valid Phone phone,
@@ -154,7 +154,7 @@ public class AdminController {
         return "admin/person";
     }
 
-    @RequestMapping(value = "person-type", method = RequestMethod.GET)
+    @RequestMapping(value = "/person-type", method = RequestMethod.GET)
     public String enterPersonTypes(Model model){
 
         page = "Edit Person Types";
@@ -166,7 +166,7 @@ public class AdminController {
         return "admin/person-type";
     }
 
-    @RequestMapping(value = "person-type", method = RequestMethod.POST)
+    @RequestMapping(value = "/person-type", method = RequestMethod.POST)
     public String enterPersonType(Model model, @ModelAttribute @Valid PersonType pt, Errors errors){
 
         if (errors.hasErrors()){
