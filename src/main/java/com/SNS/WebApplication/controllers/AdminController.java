@@ -57,6 +57,7 @@ public class AdminController {
         model.addAttribute("page", page);
         model.addAttribute("service", new Service());
         model.addAttribute("rvs", rewardValueDAO.findAll());
+        model.addAttribute("services", serviceDAO.findAll());
 
         return "admin/services";
     }

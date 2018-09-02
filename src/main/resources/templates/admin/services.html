@@ -47,7 +47,7 @@
         <td th:text="${service.description}"></td>
         <td th:text="${service.rewardValue.value}"></td>
         <td th:text="${service.rewardValue.cost}"></td>
-        <td th:text="'$' + ${service.price}"></td>
+        <td th:text="${#numbers.formatCurrency(service.price)}"></td>
     </tr>
 </table>
 

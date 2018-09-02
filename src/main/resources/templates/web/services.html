@@ -8,23 +8,31 @@
 <nav th:replace="fragments :: navigation"></nav>
 <br />
 <h1 th:replace="fragments :: page"></h1>
+<form method="post">
 <table border="1" class="table-view">
     <thead>
-        <td>Name</td>
-        <td class="table-cell">Description</td>
-        <td>Reward Value</td>
-        <td>Reward Cost</td>
-        <td class="table-cell">Price</td>
+    <td>Selection</td>
+    <td>Name</td>
+    <td class="table-cell">Description</td>
+    <td>Reward Value</td>
+    <td>Reward Cost</td>
+    <td class="table-cell">Price</td>
     </thead>
     <tr th:each="service : ${services}">
+        <td align="center"><input type="checkbox" value="${service.id}" /></td>
         <td th:text="${service.name}"></td>
         <td th:text="${service.description}"></td>
         <td th:text="${service.rewardValue.value}"></td>
         <td th:text="${service.rewardValue.cost}"></td>
-        <td th:text="'$' + ${service.price}"></td>
+        <td th:text="${#numbers.formatCurrency(service.price)}"></td>
     </tr>
+    <tfoot>
+        <td colspan="6" align="right">
+            <input type="submit" />
+        </td>
+    </tfoot>
 </table>
-
+</form>
 
 </body>
 </html>
