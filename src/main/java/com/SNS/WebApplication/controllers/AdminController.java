@@ -77,6 +77,8 @@ public class AdminController {
         service.setRewardValue(rewardValueDAO.findById(rvId).get());
         serviceDAO.save(service);
 
+        model.addAttribute("services", serviceDAO.findAll());
+
         return "admin/services";
     }
 

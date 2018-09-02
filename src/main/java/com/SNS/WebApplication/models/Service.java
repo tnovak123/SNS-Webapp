@@ -3,7 +3,6 @@ package com.SNS.WebApplication.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Currency;
 
 @Entity
 public class Service {
@@ -23,7 +22,7 @@ public class Service {
     private RewardValue rewardValue;
 
     @NotNull
-    private Currency price;
+    private Double price;
 
     public Service() {
     }
@@ -56,11 +55,11 @@ public class Service {
         this.rewardValue = rewardValue;
     }
 
-    public Currency getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Currency price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 }
