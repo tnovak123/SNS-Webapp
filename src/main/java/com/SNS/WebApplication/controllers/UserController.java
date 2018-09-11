@@ -21,7 +21,7 @@ public class UserController {
     @Autowired
     private PersonDAO personDAO;
 
-    
+
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String login(Model model){
