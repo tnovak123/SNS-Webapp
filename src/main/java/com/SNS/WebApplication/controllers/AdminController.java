@@ -63,7 +63,9 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/services", method = RequestMethod.POST)
-    public String services(Model model, @ModelAttribute @Valid Service service, @RequestParam Integer rvId, Errors errors){
+    public String services(Model model, @ModelAttribute @Valid Service service,
+                           @RequestParam Integer rvId,
+                           @RequestParam(required = false) Integer serviceId, Errors errors){
 
         page = "Service Entry Page";
         if (errors.hasErrors()){
@@ -75,8 +77,41 @@ public class AdminController {
             return "admin/services";
         }
 
+        service.setId(serviceId);
         service.setRewardValue(rewardValueDAO.findById(rvId).get());
         serviceDAO.save(service);
+
+        model.addAttribute("services", serviceDAO.findAll());
+
+        return "admin/services";
+    }
+
+    @RequestMapping(value = "/services-update", method = RequestMethod.POST)
+    public String services(Model model, @ModelAttribute @Valid Service service, @RequestParam Integer serviceId){
+
+        if (serviceId != 0){
+            model.addAttribute("title", title);
+            model.addAttribute("page", page);
+            model.addAttribute("service", serviceDAO.findById(serviceId).get());
+            model.addAttribute("rvs", rewardValueDAO.findAll());
+            model.addAttribute("services", serviceDAO.findAll());
+
+            return "admin/services";
+        }
+
+        model.addAttribute("services", serviceDAO.findAll());
+
+        return "admin/services";
+    }
+
+    @RequestMapping(value = "/services-delete", method = RequestMethod.POST)
+    public String services(Model model, @RequestParam Integer[] sId){
+
+        if (sId.length > 0){
+            for (Integer id: sId) {
+                serviceDAO.deleteById(id);
+            }
+        }
 
         model.addAttribute("services", serviceDAO.findAll());
 

@@ -11,17 +11,14 @@ public class Service {
     @GeneratedValue
     private Integer id;
 
-    @NotNull
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters long.")
     private String name;
 
-    @NotNull
     private String description;
 
     @ManyToOne
     private RewardValue rewardValue;
 
-    @NotNull
     private Double price;
 
     public Service() {
@@ -29,6 +26,10 @@ public class Service {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
