@@ -22,6 +22,7 @@ public class WebController {
     private static String page;
     private static List<Service> serviceList;
     private static List<Person> personList;
+    private static Double total;
 
 
     @Autowired
@@ -58,7 +59,7 @@ public class WebController {
     }
 
     @RequestMapping(value = "/services", method = RequestMethod.POST)
-    public String services(Model model, @RequestParam Integer[] selections, Errors errors){
+    public String services(Model model, @RequestParam(required = false) Integer[] serviceIds, Errors errors){
 
         if (errors.hasErrors()){
             model.addAttribute("title", title);
@@ -69,11 +70,12 @@ public class WebController {
             return "/web/services";
         }
 
-        for (Integer select : selections) {
-            serviceList.add(serviceDAO.findById(select).get());
+        for (Integer service : serviceIds) {
+            serviceList.add(serviceDAO.findById(service).get());
+            total = total + serviceDAO.findById(service).get().getPrice();
         }
 
-        return "/web/services";
+        return "redirect:/web/staff";
     }
 
     @RequestMapping(value = "/staff", method = RequestMethod.GET)
@@ -101,7 +103,20 @@ public class WebController {
 
         personList.add(personDAO.findById(selection).get());
 
-        return "/web/staff";
+        return "redirect:/web/checkout";
+    }
+
+    @RequestMapping(value = "/checkout", method = RequestMethod.GET)
+    public String checkout(Model model){
+
+        page = "Your Order";
+        model.addAttribute("title", title);
+        model.addAttribute("page", page);
+        model.addAttribute("services", serviceList);
+        model.addAttribute("staff", personList.get(0));
+        model.addAttribute("total", total);
+
+        return "/web/checkout";
     }
 
     @RequestMapping(value = "/about", method = RequestMethod.GET)

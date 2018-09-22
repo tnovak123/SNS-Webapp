@@ -5,13 +5,11 @@
 </head>
 <body class="container">
 
-<nav th:replace="fragments :: navigation"></nav>
-<br />
+<nav th:replace="fragments :: admin-nav"></nav>
 <h1 th:replace="fragments :: page"></h1>
-<form method="post">
+
 <table border="1" class="table-view">
     <thead>
-    <td>Selection</td>
     <td>Name</td>
     <td class="table-cell">Description</td>
     <td>Reward Value</td>
@@ -19,7 +17,6 @@
     <td class="table-cell">Price</td>
     </thead>
     <tr th:each="service : ${services}">
-        <td align="center"><input type="checkbox" name="serviceIds" th:value="${service.id}" th:id="${service.id}" /></td>
         <td th:text="${service.name}"></td>
         <td th:text="${service.description}"></td>
         <td th:text="${service.rewardValue.value}"></td>
@@ -27,12 +24,11 @@
         <td th:text="${#numbers.formatCurrency(service.price)}"></td>
     </tr>
     <tfoot>
-        <td colspan="6" align="right">
-            <input type="submit" value="Book services"/>
-        </td>
+        <td colspan="5" align="right" th:text="{#numbers.formatCurrency(total)}"></td>
     </tfoot>
 </table>
-</form>
+
+<p>Your technician will be <span th:text="${staff.fname + ' ' + staff.lname}"></span></p>
 
 </body>
 </html>
