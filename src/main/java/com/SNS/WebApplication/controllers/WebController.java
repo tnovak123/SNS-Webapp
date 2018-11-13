@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,8 +21,8 @@ public class WebController {
 
     private static String title = "Sam's Nail Spa";
     private static String page;
-    private static List<Service> serviceList;
-    private static List<Person> personList;
+    private static ArrayList<Service> serviceList;
+    private static ArrayList<Person> personList;
     private static Double total;
 
 
@@ -59,22 +60,27 @@ public class WebController {
     }
 
     @RequestMapping(value = "/services", method = RequestMethod.POST)
-    public String services(Model model, @RequestParam(required = false) Integer[] serviceIds, Errors errors){
+    public String services(@RequestParam(name="serviceIds", required = false) Integer[] serviceIds, Model model)
+            //Errors errors)
+    {
 
-        if (errors.hasErrors()){
-            model.addAttribute("title", title);
-            model.addAttribute("page", page);
-            model.addAttribute("services", serviceDAO.findAll());
-            model.addAttribute("errors", errors);
+//        if (errors.hasErrors()){
+//            model.addAttribute("title", title);
+//            model.addAttribute("page", page);
+//            model.addAttribute("services", serviceDAO.findAll());
+//            model.addAttribute("errors", errors);
+//
+//            return "/web/services";
+//        }
 
-            return "/web/services";
+        if (serviceIds.length > 0) {
+            serviceList = new ArrayList<Service>();
+            total = 0.00;
+            for (Integer service : serviceIds) {
+                serviceList.add(serviceDAO.findById(service).get());
+                total = total + serviceDAO.findById(service).get().getPrice();
+            }
         }
-
-        for (Integer service : serviceIds) {
-            serviceList.add(serviceDAO.findById(service).get());
-            total = total + serviceDAO.findById(service).get().getPrice();
-        }
-
         return "redirect:/web/staff";
     }
 
@@ -90,18 +96,27 @@ public class WebController {
     }
 
     @RequestMapping(value = "/staff", method = RequestMethod.POST)
-    public String staff(Model model, @RequestParam Integer selection, Errors errors){
+    public String staff(Model model,
+                        //Errors errors,
+                        @RequestParam(name="staff", required = false) Integer staff){
 
-        if (errors.hasErrors()){
-            model.addAttribute("title", title);
-            model.addAttribute("page", page);
-            model.addAttribute("persons", personDAO.findAll());
-            model.addAttribute("errors", errors);
+//        if (errors.hasErrors()){
+//            model.addAttribute("title", title);
+//            model.addAttribute("page", page);
+//            model.addAttribute("persons", personDAO.findAll());
+//            model.addAttribute("errors", errors);
+//
+//            return "/web/staff";
+//        }
 
-            return "/web/staff";
+        System.out.println("*****");
+        System.out.println(staff);
+        System.out.println("****");
+
+        if (staff != null) {
+            personList = new ArrayList<Person>();
+            personList.add(personDAO.findById(staff).get());
         }
-
-        personList.add(personDAO.findById(selection).get());
 
         return "redirect:/web/checkout";
     }

@@ -24,7 +24,7 @@
         <td th:text="${#numbers.formatCurrency(service.price)}"></td>
     </tr>
     <tfoot>
-        <td colspan="5" align="right" th:text="{#numbers.formatCurrency(total)}"></td>
+        <td colspan="5" align="right" th:text="${#numbers.formatCurrency(total)}"></td>
     </tfoot>
 </table>
 

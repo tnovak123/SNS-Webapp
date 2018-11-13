@@ -16,7 +16,7 @@
         <td></td>
     </thead>
     <tr th:each="person : ${persons}">
-        <td><input type="checkbox" name="staff" th:value="${person.id}" /></td>
+        <td><input type="checkbox" name="staff" th:value="${person.id}" th:id="${person.id}" /></td>
         <td th:text="${person.fName}">Image of Staff Member</td>
         <td th:text="${person.lName}">Experience/specialty of Staff member</td>
         <td>Selection button</td>
