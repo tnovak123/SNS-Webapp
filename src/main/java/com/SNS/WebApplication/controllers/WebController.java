@@ -109,9 +109,9 @@ public class WebController {
 //            return "/web/staff";
 //        }
 
-        System.out.println("*****");
-        System.out.println(staff);
-        System.out.println("****");
+//        System.out.println("*****");
+//        System.out.println(staff);
+//        System.out.println("****");
 
         if (staff != null) {
             personList = new ArrayList<Person>();

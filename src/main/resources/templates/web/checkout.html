@@ -5,7 +5,7 @@
 </head>
 <body class="container">
 
-<nav th:replace="fragments :: admin-nav"></nav>
+<nav th:replace="fragments :: navigation"></nav>
 <h1 th:replace="fragments :: page"></h1>
 
 <table border="1" class="table-view">
@@ -18,7 +18,7 @@
     </thead>
     <tr th:each="service : ${services}">
         <td th:text="${service.name}"></td>
-        <td th:text="${service.description}"></td>
+        <td nowrap="false" th:text="${service.description}"></td>
         <td th:text="${service.rewardValue.value}"></td>
         <td th:text="${service.rewardValue.cost}"></td>
         <td th:text="${#numbers.formatCurrency(service.price)}"></td>
@@ -28,7 +28,7 @@
     </tfoot>
 </table>
 
-<p>Your technician will be <span th:text="${staff.fname + ' ' + staff.lname}"></span></p>
+<p>Your technician will be <span th:text="${staff.fName} + ' ' + ${staff.lName}"></span></p>
 
 </body>
 </html>
